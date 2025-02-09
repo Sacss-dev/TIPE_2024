@@ -6,5 +6,5 @@ Vous trouverez ici toutes les ressources liées à mon projet, de la documentati
 
 Voilà un index pour traverser ce git sereinement : 
 - [La documentation](/documentation/docu.md)
-- Le code
+- [Le code](code/tipe.pdf) (version optimisée seulement)
 - [La présentation finale](/presentation/pres.md)
