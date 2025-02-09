@@ -5,8 +5,6 @@
 Vous trouverez ici toutes les ressources liées à mon projet, de la documentation initiale jusqu'à la présentation finale, en passant également par les brouillons et le code !
 
 Voilà un index pour traverser ce git sereinement : 
-- [La documentation initiale](/documentation/docu.md)
-- Les brouillons
+- [La documentation](/documentation/docu.md)
 - Le code
-- [Les expériences](/experiences/xp.md)
 - [La présentation finale](/presentation/pres.md)
