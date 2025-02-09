@@ -1,0 +1,579 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   TIPE OLIVIER CAFFIER MPI(*) Faidherbe
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass{beamer}
+
+\usetheme[hideothersubsections]{UNLTheme}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\usepackage{multicol}
+\definecolor{marine_blue}{RGB}{3, 4, 94}
+\lstset{
+    framerule=1pt,
+    frame=tb,
+    emphstyle={\small\ttfamily\bfseries\color{Orange}},
+    numbers=left,
+    numberstyle= \tiny\color{black},
+    basicstyle = \small\ttfamily,
+    keywordstyle    = \bfseries\color{red},
+    identifierstyle = \bfseries\color{violet},
+    stringstyle     = \bfseries\color{black},
+    commentstyle    = \bfseries\color{olive},
+    breaklines      =   true,
+    columns         =   fixed,
+    basewidth       =   .5em,
+    backgroundcolor=\color{violet!10},
+    tabsize=2,
+    showspaces=false,
+    showstringspaces=false,
+}
+
+
+\title{TIPE }
+\author{} %
+\institute{}
+\date{Résolution algorithmique et génération de problèmes}
+
+\begin{document}
+
+%{% open a Local TeX Group
+%\setbeamertemplate{sidebar}{}
+\begin{frame}
+        \titlepage
+		\begin{center}
+			\color{marine_blue}\textbf{Go-getter}
+		\end{center}
+\end{frame}
+%}% end Local TeX Group
+
+
+\section{Introduction}
+
+\begin{frame}
+    \frametitle{Introduction}
+    \framesubtitle{Le jeu en lui-même}
+    \begin{center}
+    	\includegraphics[scale=0.3]{images/plateau_photo_2.jpg}
+    \end{center}
+   
+
+\end{frame}
+\begin{frame}
+    \frametitle{Introduction}
+    \framesubtitle{Le jeu en lui-même}
+    \begin{center}
+    	\includegraphics[scale=0.3]{images/plateau_photo_3.jpg} 
+    \end{center}
+   
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Introduction}
+    \framesubtitle{Le jeu en lui-même}
+    \begin{center}
+    	\includegraphics[scale=0.3]{images/plateau_photo_4.jpg} 
+    \end{center}
+   
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Introduction}
+    \framesubtitle{Le jeu en lui-même}
+	24 problèmes différents : 
+	\begin{center}
+		\hspace*{\fill} \includegraphics[scale=0.04]{images/plateau_photo_12.jpg}  \hspace*{\fill} \includegraphics[scale=0.14]{images/plateau_photo_10.jpg} \hspace*{\fill} \includegraphics[scale=0.04]{images/plateau_photo_11.jpg} \hspace*{\fill}
+	\end{center}
+    
+
+\end{frame}
+\begin{frame}
+    \frametitle{Introduction}
+    \framesubtitle{Le jeu en lui-même}
+	Chemins parfaits, imparfaits 
+
+
+	\begin{center}
+		\hspace*{\fill}
+		\includegraphics[scale=0.6]{images/bruteforce_screen_3} \hspace*{\fill}
+		\includegraphics[scale=0.18]{images/plateau_photo_1.jpg} \hspace*{\fill}
+	\end{center}
+    
+
+\end{frame}
+\begin{frame}
+	\frametitle{Introduction}
+	\framesubtitle{Brève étude du problème}
+	\begin{center}
+		\includegraphics[scale=0.12]{images/denombrement.jpeg}
+\end{center}
+Soit $n$ le nombre de pièces :
+	\begin{center}
+		$\underbrace{n!}_{n \textit{ emplacements}} \times \underbrace{4^{n}}_{ \textit{rotations}}$ plateaux possibles 
+	\end{center}
+	\small environ $10^{11}$ configurations différentes.
+	
+\end{frame}
+
+
+\section{Modélisation}    
+
+\begin{frame}
+    \frametitle{Modélisation}
+    \framesubtitle{Une pièce quelconque, du jeu au schéma (1)}
+		Prenons une pièce du jeu, qu'on nommera $P_1$ : 
+			\begin{center}
+				\includegraphics[scale=0.25]{images/p4}
+				\vskip 0.25cm
+				\includegraphics[scale=0.25]{images/p4_modif1}
+				\vskip 0.25cm
+				\includegraphics[scale=0.3]{images/p4_modif2}
+				
+			\end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Modélisation}
+    \framesubtitle{Une pièce quelconque, du jeu au schéma (2)}
+			\begin{center}
+				\includegraphics[scale=0.4]{images/p4_modif2}
+			\end{center}
+			
+				On convertit alors cette pièce par une liste d'adjacence : 
+				\begin{enumerate}
+					\setcounter{enumi}{-1}
+					\item 
+					\item $[2 ; 3 ]$
+					\item $[1 ; 3 ]$
+					\item $[1 ; 2 ]$
+				\end{enumerate}
+				
+				
+			
+\end{frame}
+
+\begin{frame}
+	\frametitle{Modélisation}
+	\framesubtitle{Une pièce quelconque, du schéma au code}
+		\begin{enumerate}
+					\setcounter{enumi}{-1}
+					\item 
+					\item $[ 2 ;  3 ]$
+					\item $[ 0; 3 ]$
+					\item $[0 ; 2]$
+		\end{enumerate}
+		et on convertit cette liste d'adjacence en C : 
+		\includegraphics[scale=0.8]{images/piece_quelconque_implementation}
+\end{frame}
+
+
+	
+	\begin{frame}
+		\frametitle{Modélisation}
+		\framesubtitle{Moteur graphique}
+			\begin{center}
+				\includegraphics[scale=0.9]{images/modelisation.png}
+			\end{center}
+	\end{frame}
+	
+	
+
+
+\begin{frame}
+	\frametitle{Modélisation}
+	\framesubtitle{Vocabulaire}
+		On définit le vocabulaire suivant : 
+		\begin{itemize}
+			\item \textit{Deck} : ensemble de cartes
+			\item \textit{Slot} : case (remplie/non-remplie) du plateau disposant des côtés numérotés (de la même manière qu'une pièce) de $0$ à $3$.
+		\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Modélisation}
+	\framesubtitle{Implémentation d'un deck}
+	
+	Le jeu nous met à dispositions $9$ cartes, on va les placer dans un tableau (que l'on nommera l'\textit{index}), un peu à la manière de mettre à plat sur une table toutes les cartes : 
+	\vspace*{\fill}
+	\begin{center}
+		\vspace*{\fill}
+		\includegraphics[scale=0.5]{images/used_cards_v1} \vspace*{\fill} \\
+		\includegraphics[scale=0.2]{images/plateau_photo_5.jpg}
+	\end{center}
+	\vspace*{\fill}
+	
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Modélisation}
+	\framesubtitle{Définition des types}
+	\small On définit alors les types suivants : 
+	\includegraphics[scale=0.5]{images/types_implementation}
+
+
+	\end{frame}
+	
+	
+\section{Bruteforce}
+\begin{frame}
+	\frametitle{Bruteforce}
+	\framesubtitle{Avec des schémas (0)}
+	Posons en guise d'exemple deux conditions $C_1$ et $C_2$ avec : 
+	\begin{itemize}
+		\item $C_1$ : \includegraphics[scale=0.01]{/Users/sacss/Desktop/Prépa/6.TIPE/Code/pictures/white_mouse.png} $\rightarrow$ \includegraphics[scale=0.01]{/Users/sacss/Desktop/Prépa/6.TIPE/Code/pictures/red_cheese.png}
+		\item $C_2$ : \includegraphics[scale=0.01]{/Users/sacss/Desktop/Prépa/6.TIPE/Code/pictures/grey_mouse.png} $\rightarrow$ \includegraphics[scale=0.01]{/Users/sacss/Desktop/Prépa/6.TIPE/Code/pictures/white_cat.png}
+	\end{itemize}
+	\begin{center}
+		\includegraphics[scale=0.12]{images/exemple_bruteforce.png}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Bruteforce}
+	\framesubtitle{Avec des schémas (1)}
+	\begin{center}
+		\includegraphics[scale=0.5]{images/bruteforce_screen_1}
+	\end{center}
+	\footnotesize
+	Choisissons $P_1$ comme première pièce posée, sans rotation : 
+	
+	\begin{center}
+		\includegraphics[scale=0.7]{images/used_cards_v2}
+	\end{center}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Bruteforce}
+	\framesubtitle{Avec des schémas (2) }
+		\begin{center}
+			\includegraphics[scale=0.5]{images/bruteforce_screen_2}
+		\end{center}
+	\footnotesize
+	Choisissons ensuite $P_2$ comme deuxième pièce posée, sans rotation : 
+	
+	\begin{center}
+		\includegraphics[scale=0.7]{images/used_cards_v3}
+	\end{center}
+	
+		
+\end{frame}
+
+\begin{frame}
+	\frametitle{Bruteforce}
+	\framesubtitle{Avec des schémas (3)}
+	\begin{center}
+			\includegraphics[scale=0.5]{images/bruteforce_screen_3}
+		\end{center}
+	\footnotesize
+	 Remplissons le reste... On obtient un plateau qu'on note $\mathbb{T}_1$
+	
+	\begin{center}
+		\includegraphics[scale=0.7]{images/used_cards_v5}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Bruteforce}
+	\framesubtitle{Avec des schémas (4) }
+	Traduisons la condition \color{red}$C_1$\color{black} sur le schéma.
+	\begin{center}
+		\includegraphics[scale=0.7]{images/bruteforce_screen_4}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Bruteforce}
+	\framesubtitle{Avec des schémas (5)}
+	On voit bien que $\mathbb{T}_1$ respecte bien \color{red}$C_1$\color{black}
+		\begin{center}
+			\includegraphics[scale=0.7]{images/bruteforce_screen_5}
+		\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Bruteforce}
+	\framesubtitle{Avec des schémas (6)}
+	Néanmoins \color{orange}$C_2$ \color{black}  est insatisfaite par $\mathbb{T}_1$
+		\begin{center}
+			\includegraphics[scale=0.7]{images/bruteforce_screen_6}
+		\end{center}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Bruteforce}
+	\framesubtitle{Avec des schémas (7)}
+	\begin{center}
+		\includegraphics[scale=0.4]{images/bruteforce_screen_6} \\ $\Downarrow$  \\ \includegraphics[scale=0.1]{bruteforce_screen_15}
+	\end{center}
+	\footnotesize
+	On modifie la dernière pièce posée \textbf{en faisant une rotation de 90 degrés} sur cette dernière.
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Bruteforce}
+	\framesubtitle{Avec des schémas (8)}
+	Néanmoins ce nouveau plateau ne respecte pas $C_2$. On réitère alors notre opération de rotation…
+	\begin{center}
+		\includegraphics[scale=0.3]{images/bruteforce_screen_15} \\
+		\includegraphics[scale=0.3]{images/bruteforce_screen_14} \\
+		\includegraphics[scale=0.3]{images/bruteforce_screen_15}
+		
+	\end{center}
+\end{frame}
+\begin{frame}
+	\frametitle{Bruteforce}
+	\framesubtitle{Avec des schémas (9)}
+	Aucune rotation ne correspond, on retourne à l'avant dernier slot :
+	\begin{center}
+		\includegraphics[scale=0.3]{images/bruteforce_screen_11} \\
+		\includegraphics[scale=0.3]{images/bruteforce_screen_12} \\
+		\includegraphics[scale=0.3]{images/bruteforce_screen_13}
+		
+	\end{center}
+
+\end{frame}
+\begin{frame}
+	\frametitle{Bruteforce}
+	\framesubtitle{Avec des schémas (10)}
+	Etc… On recommence en faisant tourner $P_1$ de 90 degrés : 
+	\begin{center}
+		\includegraphics[scale=0.6]{images/bruteforce_screen_16.png}
+	\end{center}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Bruteforce}
+	\framesubtitle{Avec des schémas (11)}
+	\begin{center}
+		\includegraphics[scale=0.7]{images/bruteforce_screen_8}
+	\end{center}
+	On obtient alors un plateau $\mathbb{T}_2$
+\end{frame}
+
+\begin{frame}
+	\frametitle{Bruteforce}
+	\framesubtitle{Avec des schémas (12)}
+	\begin{center}
+		\includegraphics[scale=1]{images/bruteforce_screen_9}
+	\end{center}
+	Et on remarque que $\mathbb{T}_2$ respecte bien  $C_1$  et  $C_2$
+\end{frame}
+
+ \begin{frame}
+	\frametitle{Bruteforce}
+	\framesubtitle{Étude de complexité}
+	%\includegraphics[scale=0.33]{pseudo_code_1}
+	Complexité : 
+	\begin{center}
+		$\mathcal{O}(n! \times 4^n)$ 
+	\end{center}
+
+	\begin{flushright}
+		il est d'ailleurs NP-Complet ($\leq_p$ Couverture exacte). 
+		D'où le fait qu'on reste sur la stratégie backtrack par la suite, en l'optimisant.
+	\end{flushright}
+
+	
+\end{frame}
+
+\section{Optimisation}
+	
+
+\begin{frame}
+	\frametitle{Optimisation}
+	\framesubtitle{Premier problème : éviter de compléter linéairement}
+	Prenons le plateau avec les contraintes suivantes : 
+	\begin{center}
+		\includegraphics[scale=0.18]{images/premier_probleme.png}
+	\end{center}
+\end{frame}
+\begin{frame}
+	\frametitle{Optimisation}
+	\framesubtitle{Premier problème : éviter de compléter linéairement}
+	Le joueur humain prendra le réflexe de d'abord compléter les cases avec les contraintes : 
+	\begin{center}
+		\vspace*{\fill}
+		\includegraphics[scale=0.2]{images/plateau_photo_6.jpg} 
+		\includegraphics[scale=0.2]{images/plateau_photo_7.jpg}  \\ \vspace*{\fill} 
+
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Optimisation}
+	\framesubtitle{Premier problème : éviter de compléter linéairement}
+	On va donc créer une file de priorité pour trouver les slots prioritaires à traiter et les ordonner
+	\begin{itemize}
+		\item On identifie le nombre de contraintes qu'elle possède 
+		\item On lui attribue une valeur de priorité en fonction de ce nombre
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Optimisation}
+	\framesubtitle{Premier problème : éviter de compléter linéairement}
+	On associe la priorité $20$ par exemple au slot à 2 contraintes : 
+	\begin{center}
+		\includegraphics[scale=0.3]{images/opti_screen_2.png}
+	\end{center}
+	et la priorité $10$ aux deux autres slots : 
+	\begin{center}
+		 \includegraphics[scale=0.3]{images/opti_screen_3.png} \\  \includegraphics[scale=0.3]{images/opti_screen_4.png} 
+	\end{center}
+	\begin{flushright}
+		Les autres slots possèdent la priorité 0. On sait donc quels sont les slots à traiter en premier.
+	\end{flushright}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Optimisation}
+	\framesubtitle{Troisième problème : gestion du deck}
+	Concernant la file \textbf{par slot}, 
+	\begin{itemize}
+		\item On sélectionne juste les cartes qui sont capables de répondre au nombre de contraintes
+	\end{itemize}
+	Par exemple, pour la contrainte suivante, il n'y a que les cartes à au moins 2 chemins qui peuvent convenir : 
+	\begin{center}
+		\includegraphics[scale=0.3]{images/opti_screen_2.png}
+	\end{center}
+	\begin{flushright}
+		ce qui permet de réduire le nombre de cartes éligibles par slot, et donc réduire le nombre de coups.
+	\end{flushright}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Optimisation}
+	\framesubtitle{Deuxième problème : vérification partielle des configurations}
+
+	Il y a également un besoin de répondre directement si une configuration partielle correspond au critère ou non. \\ 
+	Exemple d'une configuration posant problème : 
+	\begin{center}
+		\includegraphics[scale=0.4]{images/opti_screen_5.png}
+	\end{center}
+\end{frame}
+\begin{frame}
+	\frametitle{Optimisation}
+	\framesubtitle{Deuxième problème : vérification partielle des configurations}
+	On va donc créer une heuristique vérifiant si : 
+	\begin{enumerate}
+		\item la construction respecte bien les contraintes imposées pour les cartes déjà posées (exemple précédent)
+		\item il n'y a pas de cycles fermés
+		\item il n'y pas de situations dites sans issues (profondeur de recherche limitée à 1)
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Optimisation}
+	\framesubtitle{Deuxième problème : vérification partielle des configurations}
+	2. Exemple de cycle fermé
+	\begin{center}
+		\includegraphics[scale=0.5]{images/cycle_ferme.jpeg}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Optimisation}
+	\framesubtitle{Deuxième problème : vérification partielle des configurations}
+	3. Exemple de situation sans issue 
+	\begin{center}
+		\includegraphics[scale=0.8]{images/sans_issue.png}
+	\end{center}
+	
+	
+\end{frame}
+\begin{frame}
+	\frametitle{Bruteforce}
+	\framesubtitle{Quelques problèmes, performance}
+	
+
+	Problèmes : 
+	\begin{enumerate}
+		\item Complète linéairement le tableau 
+		\item Pas d'élimination immédiate des configurations absurdes, impossibles
+		\item Dépend trop de l'ordre dans lequel les cartes sont disposées sur le deck 
+	\end{enumerate}
+	
+	Statistiques : 
+	\begin{center}
+		ne peut résoudre que les niveaux faciles en moins d'1'
+	\end{center}
+	
+\end{frame}
+\begin{frame}
+	\frametitle{Optimisation}
+	\framesubtitle{Bilan des optimisations}
+	Bilan de performance (arrondie à l'unité supérieure): 
+	\begin{center}
+		\begin{tabular}{|c||c|c|}
+			\hline
+			Niveaux & Sans opt, c.i& Sans opt, c.p \\ \hline
+			Facile &  1' &  30' \\ \hline
+			Moyen & 15' & $\infty$  \\ \hline
+			Difficile & $\infty$ & $\infty$  \\ \hline
+			Très Difficile & $\infty$ & $\infty$ \\ \hline
+		\end{tabular}
+	\end{center}
+	\begin{center}
+		\begin{tabular}{|c||c|c|}
+			\hline
+			Niveaux &  Avec opt, c.i & Avec opt, c.p \\ \hline 
+			Facile &  5" & 10" \\ \hline
+			Moyen &  8" & 15" \\ \hline
+			Difficile &  1' & 4' \\ \hline
+			Très Difficile &  5' & 30'  \\ \hline
+		\end{tabular}
+
+	\end{center}
+	\footnotesize c.i = chemin imparfait ; c.p = chemin parfait ; opt = optimisation 
+\end{frame}
+
+\section{Génération de problèmes}
+
+\begin{frame}
+	\frametitle{Génération de problèmes}
+	\framesubtitle{Quelques niveaux}
+	Générer un problème à $k$ contraintes consiste à la réalisation de 2 étapes : 
+	\begin{itemize}
+		\item Générer aléatoirement $k \times $ (2 emplacements distincts et leurs côtés)
+		\item Vérifier avec notre algorithme si une solution au problème généré avec chemin parfait existe. On déduit le niveau de difficulté du temps requis à l'algorithme.
+	\end{itemize}
+	
+\end{frame}
+\begin{frame}
+	\frametitle{Génération de problèmes}
+	\framesubtitle{Quelques niveaux}
+	Un exemple de problème généré et résolu : 
+	\begin{multicols}{2}
+		\begin{itemize}
+			\item \includegraphics[scale=0.01]{/Users/sacss/Desktop/Prépa/6.TIPE/Code/pictures/bone_1.png} $\rightarrow$ \includegraphics[scale=0.01]{/Users/sacss/Desktop/Prépa/6.TIPE/Code/pictures/bone_2.png}
+			\item \includegraphics[scale=0.01]{/Users/sacss/Desktop/Prépa/6.TIPE/Code/pictures/white_cat.png} $\rightarrow$ \includegraphics[scale=0.01]{/Users/sacss/Desktop/Prépa/6.TIPE/Code/pictures/grey_dog.png}
+			\item \includegraphics[scale=0.01]{/Users/sacss/Desktop/Prépa/6.TIPE/Code/pictures/white_mouse.png} $\rightarrow$ \includegraphics[scale=0.01]{/Users/sacss/Desktop/Prépa/6.TIPE/Code/pictures/bone_1.png}
+			\item \includegraphics[scale=0.01]{/Users/sacss/Desktop/Prépa/6.TIPE/Code/pictures/tree.png} $\rightarrow$ \includegraphics[scale=0.01]{/Users/sacss/Desktop/Prépa/6.TIPE/Code/pictures/bone_1.png} \includegraphics[scale=0.01]{/Users/sacss/Desktop/Prépa/6.TIPE/Code/pictures/bone_2.png}
+			\item \includegraphics[scale=0.01]{/Users/sacss/Desktop/Prépa/6.TIPE/Code/pictures/fox.png} $\rightarrow$ \includegraphics[scale=0.01]{/Users/sacss/Desktop/Prépa/6.TIPE/Code/pictures/yellow_cheese.png}
+		\end{itemize}
+
+		\begin{center}
+			\includegraphics[scale=0.24]{images/plateau_photo_1.jpg}
+		\end{center}
+	\end{multicols}
+	
+\end{frame}
+
+
+
+\end{document}
+
