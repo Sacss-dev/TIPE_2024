@@ -8,6 +8,7 @@ Voilà un index pour traverser ce git sereinement :
 - [La documentation](/documentation/docu.md)
 - [Le code](code/tipe.pdf) (version optimisée seulement)
 - [La présentation finale](/presentation/pres.md)
+- [La présentation en vidéo](https://youtu.be/PmFj9h9ugE0)
 
 --- 
 
